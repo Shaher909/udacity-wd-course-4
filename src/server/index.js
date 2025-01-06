@@ -40,7 +40,8 @@ app.post("/submit", async function (req, res) {
   try {
     //execute a function (ex: retrieve info from the API)
     console.log("Try is successful");
-    res.send("Success");
+    console.log(formData);
+    res.send(formData);
   } catch (e) {
     console.log("try failed: ", e);
   }

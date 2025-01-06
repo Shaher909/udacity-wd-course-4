@@ -12,9 +12,9 @@ function handleSubmit(event) {
 
   alert("form submitted");
   console.log(data);
-  // postData("/submit", {
-  //   url: data["url"],
-  // });
+  postData("http://localhost:8000/submit", {
+    url: data["url"],
+  });
 }
 // Function to send data to the server
 // Async function to post the data to the server from the client side
