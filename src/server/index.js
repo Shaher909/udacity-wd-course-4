@@ -87,3 +87,5 @@ const getNewsArticles = async (inputTitle, noOfStories, language) => {
     });
   });
 };
+
+module.exports = { getNewsArticles };

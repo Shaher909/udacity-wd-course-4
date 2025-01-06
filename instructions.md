@@ -53,4 +53,5 @@ An external API would be used to classify content into subjective or objective.
 - Sign up for an API key - OK
 - API calls should happen on server side (keys not on client side)
 - Install SDK: https://docs.aylien.com/newsapi/v6/getting-started/#overview -> https://docs.aylien.com/newsapi/v5/sdks/#javascript-node-js-sdk -OK
--
+- Use the API - OK
+- Install Jest - OK

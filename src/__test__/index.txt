@@ -1,0 +1,94 @@
+// Required modules
+const dotenv = require("dotenv");
+dotenv.config();
+const AylienNewsApi = require("aylien-news-api");
+const express = require("express");
+const bodyParser = require("body-parser");
+import { getNewsArticles } from "../server/index";
+
+jest.mock("aylien-news-api"); // Mock AylienNewsApi
+
+const mockResponse = {
+  stories: [
+    {
+      title: "Example News Title 1",
+      source: { name: "Example Source 1" },
+      links: { permalink: "http://example.com/1" },
+      hashtags: ["#example1", "#news"],
+    },
+    {
+      title: "Example News Title 2",
+      source: { name: "Example Source 2" },
+      links: { permalink: "http://example.com/2" },
+      hashtags: ["#example2", "#news"],
+    },
+  ],
+};
+
+describe("getNewsArticles function", () => {
+  let app;
+  let testPort = 8002; // Use a different port for testing
+
+  beforeAll(async () => {
+    // Explicitly close the server on port 8000 if it's running
+    try {
+      await new Promise((resolve) => {
+        const server = require("http").createServer();
+        server.listen(8000, () => server.close(resolve));
+      });
+    } catch (error) {
+      console.error("Error stopping server on port 8000:", error);
+    }
+
+    // Setting up a new express server with a different port for testing
+    app = express();
+    app.use(bodyParser.json());
+    app.use(cors());
+
+    AylienNewsApi.DefaultApi.prototype.listStories = jest
+      .fn()
+      .mockImplementation((opts, callback) => {
+        setTimeout(() => {
+          callback(null, mockResponse, { statusCode: 200 });
+        }, 100); // Simulate a delay to avoid timeout
+      });
+
+    // Start server on port 8002
+    app.listen(testPort, () => {
+      console.log(`Server running on port ${testPort}`);
+    });
+  });
+
+  afterAll(async () => {
+    app.close(); // Close the server after all tests
+  });
+
+  it("should return news articles with correct structure", async () => {
+    const inputTitle = "Sample Title";
+    const noOfStories = 2;
+    const language = "en";
+
+    const result = await getNewsArticles(inputTitle, noOfStories, language);
+
+    // Assertions
+    expect(AylienNewsApi.DefaultApi.prototype.listStories).toHaveBeenCalledWith(
+      { title: inputTitle, perPage: noOfStories, language: [language] },
+      expect.any(Function)
+    );
+
+    expect(result).toEqual([
+      {
+        title: "Example News Title 1",
+        source: "Example Source 1",
+        permalink: "http://example.com/1",
+        hashtags: ["#example1", "#news"],
+      },
+      {
+        title: "Example News Title 2",
+        source: "Example Source 2",
+        permalink: "http://example.com/2",
+        hashtags: ["#example2", "#news"],
+      },
+    ]);
+  });
+});
