@@ -9,6 +9,21 @@ main {
 }
 
 section {
-  max-width: 800px;
-  margin: 50px auto;
+  max-width: 550px !important;
+  margin: 25px auto !important;
+}
+
+@media (min-width: 800px) {
+  section {
+    max-width: 800px;
+    margin: 50px auto;
+  }
+}
+
+#app-container {
+  display: grid;
+  grid-template-columns: 80vw;
+  grid-template-rows: auto auto auto;
+  grid-gap: 15px;
+  justify-content: center;
 }
