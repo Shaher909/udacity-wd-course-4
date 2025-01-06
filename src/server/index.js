@@ -3,6 +3,8 @@ dotenv.config();
 
 // Require the Aylien npm package
 var aylien = require("aylien_textapi");
+var AylienNewsApi = require("aylien-news-api");
+var defaultClient = AylienNewsApi.ApiClient.instance;
 var path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -16,14 +18,14 @@ app.use(bodyParser.json());
 
 console.log(__dirname);
 
-// Variables for url and api key
-// You could call it aylienapi, or anything else
-var textapi = new aylien({
-  application_id: process.env.API_ID,
-  application_key: process.env.API_KEY,
-});
+// Aylien setup & Variables for url and api key
+var app_id = defaultClient.authentications["app_id"];
+app_id.apiKey = process.env.API_ID;
 
-const aylienStoriesApiUrl = "https://api.aylien.com/news/stories";
+var app_key = defaultClient.authentications["app_key"];
+app_key.apiKey = process.env.API_KEY;
+
+var apiInstance = new AylienNewsApi.DefaultApi();
 
 app.get("/", function (req, res) {
   res.send(
@@ -40,8 +42,11 @@ app.post("/submit", async function (req, res) {
   try {
     //execute a function (ex: retrieve info from the API)
     console.log("Try is successful");
-    console.log(formData);
-    res.send(formData);
+    console.log("response code:" + res.statusCode);
+
+    const arctilesInfo = await getNewsArticles("Musk", "2", "en");
+    console.log(arctilesInfo);
+    res.send(arctilesInfo);
   } catch (e) {
     console.log("try failed: ", e);
   }
@@ -53,4 +58,26 @@ app.listen(8000, function () {
 });
 
 // function to analyse news arctile from API
-const analyzeNewsArticle = async (url) => {};
+const getNewsArticles = async (inputTitle, noOfStories, language) => {
+  return new Promise((resolve, reject) => {
+    const opts = {
+      title: inputTitle,
+      perPage: noOfStories,
+      language: [language],
+    };
+
+    apiInstance.listStories(opts, (error, data, response) => {
+      if (error) {
+        console.error(error);
+      } else {
+        const extractedInfo = data.stories.map((story) => ({
+          title: story.title,
+          source: story.source.name,
+          permalink: story.links.permalink,
+          hashtags: story.hashtags,
+        }));
+        resolve(extractedInfo);
+      }
+    });
+  });
+};
