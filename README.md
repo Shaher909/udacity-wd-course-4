@@ -16,6 +16,8 @@ npm install
 
 -- Run: `npm run start` and you should be able to access the server at: http://localhost:8000/
 
+3- In order to get the API working, please create a local `.env`file (to store the project ID and API key)
+
 ## Features:
 
 - A form that fetches stories from Alyien API based on specific keywords in the title
