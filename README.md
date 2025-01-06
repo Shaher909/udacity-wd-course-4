@@ -8,7 +8,8 @@
 npm install
 ```
 
-2- To verify your setup is complete and correct
+2- To verify your setup is complete and correct:
+
 -- Run: `npm run build-dev` and you should be able to access the client via: http://localhost:3000/ (configured via webpack config)
 
 -- Run: `npm run build-prod` and `dist`folder should be created (you can delete the existing one of course beforehand)
