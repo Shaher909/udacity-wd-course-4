@@ -2,11 +2,18 @@
 
 ## Setup
 
-1- Follow the **Installation Steps** in the `instruction.md`file.
+1- Installation, run:
+
+```
+npm install
+```
+
 2- To verify your setup is complete and correct
-Run: `npm run build-dev` and you should be able to access the client via: http://localhost:3000/ (configured via webpack config)
-Run: `npm run build-prod` and `dist`folder should be created
-Run: `npm run start` and you should be able to access the server at: http://localhost:8000/
+-- Run: `npm run build-dev` and you should be able to access the client via: http://localhost:3000/ (configured via webpack config)
+
+-- Run: `npm run build-prod` and `dist`folder should be created (you can delete the existing one of course beforehand)
+
+-- Run: `npm run start` and you should be able to access the server at: http://localhost:8000/
 
 ## Features:
 
