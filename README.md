@@ -14,6 +14,7 @@ Run: `npm run start` and you should be able to access the server at: http://loca
 - You can specify fetching more than one article (up to 6)
 - Each article conatains a link to the source website on the internet
 - It's possible to request articles in 3 languages English, French and Spanish
+- Layout is mobile-friendly by using media queries for different screen sizes
 
 Note: no text analysis feature was introduced as this feature seems of Text Analysis seems to be deprecated, see: https://aylien.com/blog/adieu-text-analysis-api
 
