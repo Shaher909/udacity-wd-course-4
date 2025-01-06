@@ -22,3 +22,13 @@ Note: no text analysis feature was introduced as this feature seems of Text Anal
 - API secrets are stored in `.env`local file.
 - Communication with aylien API happens on server side (via SDK approach)
 - jsdom package is installed and used in order to test DOM related interactions via jest
+
+## Testing
+
+To run automated tests:
+
+```
+npm run test
+```
+
+NOTE: Please ensure that the express server (on port 8000) is not running in parallel to the auotmated tests, otherwise there might be conflict.
