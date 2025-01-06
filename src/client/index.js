@@ -8,7 +8,4 @@ import "./styles/form.scss";
 import "./styles/header.scss";
 import "./styles/results.scss";
 
-// alert("I EXIST")
-// console.log("CHANGE!!");
-
 export { handleSubmit, renderToHtml };

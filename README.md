@@ -16,3 +16,9 @@ Run: `npm run start` and you should be able to access the server at: http://loca
 - It's possible to request articles in 3 languages English, French and Spanish
 
 Note: no text analysis feature was introduced as this feature seems of Text Analysis seems to be deprecated, see: https://aylien.com/blog/adieu-text-analysis-api
+
+## Architecture
+
+- API secrets are stored in `.env`local file.
+- Communication with aylien API happens on server side (via SDK approach)
+- jsdom package is installed and used in order to test DOM related interactions via jest
