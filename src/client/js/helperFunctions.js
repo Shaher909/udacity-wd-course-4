@@ -10,22 +10,35 @@ const renderToHtml = (storiesObject) => {
   }
 
   storiesObject.forEach((story) => {
-    const ul = document.createElement("ul"); // Create a new <ul> for each story
+    const ul = document.createElement("ul");
 
     for (const key in story) {
-      // Iterate over the properties of the story object
       if (story.hasOwnProperty(key)) {
-        // Check if property belongs to object
         const li = document.createElement("li");
-        li.textContent = `${key}: ${
-          Array.isArray(story[key]) ? story[key].join(", ") : story[key] //handle arrays nicely
-        }`; // Format string
+
+        if (key === "permalink") {
+          const a = document.createElement("a");
+          a.href = story[key];
+          a.textContent = "Article Link"; // Use concise link text
+          a.target = "_blank"; // Open in new tab
+          li.appendChild(a);
+        } else if (Array.isArray(story[key])) {
+          const span = document.createElement("span");
+          span.classList.add("array-value");
+          span.textContent = story[key].join(", ");
+          li.appendChild(span);
+          // Add a line break after array values for better formatting
+          li.appendChild(document.createElement("br"));
+        } else {
+          li.textContent = `${key}: ${story[key]}`;
+        }
+
         ul.appendChild(li);
       }
     }
-    resultsDiv.appendChild(ul); // Add each list to resultsDiv
+    resultsDiv.appendChild(ul);
+    ul.appendChild(document.createElement("hr"));
   });
 };
 
-// Export the handleSubmit function
 export { renderToHtml };

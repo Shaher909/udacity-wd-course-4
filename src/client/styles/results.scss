@@ -1,0 +1,38 @@
+#results {
+  display: flex; /* Enable flexbox for layout control */
+  flex-direction: column; /* Arrange items vertically */
+  gap: 20px; /* Add spacing between lists */
+  padding: 20px; /* Add padding around the container */
+  border: 1px solid #ccc; /* Add a subtle border */
+  border-radius: 5px; /* Round the corners */
+}
+
+#results ul {
+  list-style-type: none; /* Remove default bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
+
+#results li {
+  padding: 8px 12px; /* Add padding inside list items */
+  border-bottom: 1px solid #eee; /* Add a separator line */
+  font-size: 16px; /* Adjust font size as needed */
+}
+
+#results li:last-child {
+  border-bottom: none; /* Remove bottom border from the last item */
+}
+
+/* Style alternating rows for better readability */
+#results li:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+/* Style array values (hashtags) differently */
+#results li span.array-value {
+  display: inline-block; /* So background and padding work properly */
+  background-color: #e0f2f7; /* Light blue background */
+  padding: 2px 5px; /* Add padding around hashtag values */
+  border-radius: 3px; /* Round the corners */
+  margin-right: 5px; /* Add spacing between hashtags */
+}
