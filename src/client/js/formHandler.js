@@ -1,3 +1,5 @@
+import { renderToHtml } from "./helperFunctions";
+
 const form = document.getElementById("urlForm");
 form.addEventListener("submit", handleSubmit);
 
@@ -13,7 +15,9 @@ function handleSubmit(event) {
   alert("form submitted");
   console.log(data);
   postData("http://localhost:8000/submit", {
-    url: data["url"],
+    title: data["title"],
+    noOfStories: data["noOfStories"],
+    language: data["language"],
   });
 }
 // Function to send data to the server
@@ -31,6 +35,7 @@ const postData = async (url, dataRecord) => {
   try {
     const newData = await request.json();
     console.log(newData);
+    renderToHtml(newData);
   } catch (error) {
     console.log("Error", error);
   }

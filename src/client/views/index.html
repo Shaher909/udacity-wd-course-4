@@ -20,7 +20,19 @@
     <main>
         <section>
             <form id="urlForm" action="/submit" method="post">
-                <input id="url" type="text" name="url" placeholder="Enter URL" required>
+                <label for="title">Story Title:</label>
+                <input id="title" type="text" name="title" placeholder="Enter a title you're interested in" required>
+
+                <label for="number">How many stories to fetch?</label>
+                <input id="noOfStories" type="number" name="noOfStories" placeholder="Max value is 6" max="6" required>
+
+                <label for="language">Language:</label>
+                <select name="language" id="language" required>
+                    <option value="en">English</option>
+                    <option value="fr">French</option>
+                    <option value="es">Spanish</option>
+                </select>
+
                 <button id="submitButton" type="submit">Submit</button>
             </form>
 

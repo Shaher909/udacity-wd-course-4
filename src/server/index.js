@@ -36,7 +36,9 @@ app.get("/", function (req, res) {
 // POST Route
 app.post("/submit", async function (req, res) {
   const formData = {
-    newsUrl: req.body.url,
+    title: req.body.title,
+    noOfStories: req.body.noOfStories,
+    language: req.body.language,
   };
 
   try {
@@ -44,7 +46,11 @@ app.post("/submit", async function (req, res) {
     console.log("Try is successful");
     console.log("response code:" + res.statusCode);
 
-    const arctilesInfo = await getNewsArticles("Musk", "2", "en");
+    const arctilesInfo = await getNewsArticles(
+      formData.title,
+      formData.noOfStories,
+      formData.language
+    );
     console.log(arctilesInfo);
     res.send(arctilesInfo);
   } catch (e) {
